@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">FrameDemo</string>
+    <string name="home">首页</string>
+    <string name="sales_report">销售报表</string>
+    <string name="factory_environment">工厂环境</string>
+    <string name="toolbar_title">标题</string>
+    <string name="cold_wind">冷风</string>
+    <string name="warm_wind">暖风</string>
+    <string name="open_drawer">打开左侧导航栏</string>
+    <string name="close_drawer">关闭左侧导航栏</string>
+</resources>
