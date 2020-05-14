@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -16,53 +18,59 @@ import com.example.framedemo.R;
 import me.yokeyword.fragmentation.SupportFragment;
 
 public class FragmentSalesReprot extends SupportFragment {
-    ImageView ivColdWind;
-    ImageView ivWarmWind;
-    ImageButton ibSwitch;
-    Button btnCold;
-    Button btnWarm;
+
+    private WebView wv_visual_figure;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_sales_report,container,false);
+        return LayoutInflater.from(getContext()).inflate(R.layout.fragment_sales_report, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initView(view);
-        initListener();
+//        initData();
+//        initWebView();
+        initWebViewDemo();
     }
 
-    private void initListener() {
-        btnWarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivColdWind.setImageResource(R.drawable.close_cold_wind);
-                ivWarmWind.setImageResource(R.drawable.open_warm_wind);
-            }
-        });
-        btnCold.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivColdWind.setImageResource(R.drawable.open_cold_wind);
-                ivWarmWind.setImageResource(R.drawable.close_warm_wind);
-            }
-        });
-        ibSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ivColdWind.setImageResource(R.drawable.close_cold_wind);
-                ivWarmWind.setImageResource(R.drawable.close_warm_wind);
-            }
-        });
+    private void initWebViewDemo() {
+        wv_visual_figure.loadUrl("file:///android_asset/indexDemo.html");
+
+        wv_visual_figure.getSettings().setAllowFileAccess(true);
+        wv_visual_figure.getSettings().setJavaScriptEnabled(true);
+
+        wv_visual_figure.setWebViewClient(new WebViewClient() {
+                                              @Override
+                                              public void onPageFinished(WebView view, String url) {
+                                                  super.onPageFinished(view, url);
+                                              }
+                                          }
+        );
+    }
+
+    private void initData() {
+    }
+
+    private void initWebView() {
+        wv_visual_figure.loadUrl("file:///android_asset/index.html");
+
+        wv_visual_figure.getSettings().setAllowFileAccess(true);
+        wv_visual_figure.getSettings().setJavaScriptEnabled(true);
+
+        wv_visual_figure.setWebViewClient(new WebViewClient() {
+                                              @Override
+                                              public void onPageFinished(WebView view, String url) {
+                                                  super.onPageFinished(view, url);
+//                                                  wv_visual_figure.loadUrl("javascript:createEchart(" + dataName + "," + dataPrice + ")");
+                                              }
+                                          }
+        );
     }
 
     private void initView(View view) {
-        ivColdWind = view.findViewById(R.id.iv_cold_wind);
-        ivWarmWind = view.findViewById(R.id.iv_warm_wind);
-        ibSwitch = view.findViewById(R.id.ib_switch);
-        btnCold = view.findViewById(R.id.btn_cold);
-        btnWarm = view.findViewById(R.id.btn_warm);
+        wv_visual_figure = view.findViewById(R.id.wv_car_visual_figure);
     }
 }
